@@ -90,9 +90,9 @@ class DashboardViewController: UIViewController {
         
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
         
-        if let books = userBooks.map ({$0.toBook}) {
-            allBooks = books
-        }
+//        if let books = userBooks.map ({$0.toBook}) {
+//            allBooks = books
+//        }
         
 //        allBooks =
 //        user?.books?.allObjects as! [Book]
