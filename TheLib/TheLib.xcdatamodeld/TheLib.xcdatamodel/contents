@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G531" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Book" representedClassName="Book" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="book_description" optional="YES" attributeType="String"/>
+        <attribute name="book_id" optional="YES" attributeType="String"/>
+        <attribute name="book_image" optional="YES" attributeType="Binary"/>
+        <attribute name="catagory" optional="YES" attributeType="String"/>
+        <attribute name="created_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="is_deleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="updated_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="created_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="emailId" optional="YES" attributeType="String"/>
+        <attribute name="is_active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="password" optional="YES" attributeType="String"/>
+        <attribute name="updated_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="UserBook" representedClassName="UserBook" syncable="YES">
+        <attribute name="book_id" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="user_email" optional="YES" attributeType="String"/>
+    </entity>
+</model>

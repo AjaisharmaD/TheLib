@@ -1,0 +1,88 @@
+/* 
+  Localizable.strings
+  TheLib
+
+  Created by Ideas2it on 31/03/23.
+  
+*/
+
+//Titles
+"dashboard" = "Dashboard";
+"login" = "Login";
+"registration" = "Registration";
+"mybook" = "My Books";
+"addBook" = "Add Book";
+"booksByStatus" = "Books By Status";
+"profile" = "Profile";
+
+// Login page
+"welcomeBack" = "Welcome Back!";
+"email"  = "Enter Email Address";
+"password" = "Enter Password";
+"login" = "Login";
+"dontHaveAccount" = "New Reader?";
+"notUser" = "Not a User";
+"noAccount" = "Looks like You don't have account to Read";
+"ok" = "Ok";
+"notFilled" = "Looks like Some fields not filled";
+"enterEmailPassword" = "Enter Email / Password";
+"wrongPassword" = "Wrong Password";
+"wrongPasswordMessage" = "Looks like you Entered a wrong password";
+
+// register Page
+"hi" = "Hi!";
+"name" = "Enter Fullname";
+"confirmPassword" = "Enter Confirm Password";
+"haveAccount" = "Already a Reader?";
+"register" = "Register";
+"enterDetails" = "Enter Details";
+"passwordError" = "Password Error";
+"passwordNotMatching" = "Looks like Confirm Password is not matching";
+"existingUser" = "Existing User?";
+"alreadyReader" = "Looks like You already have a Account to Read";
+"dateFormat" = "dd-MM-yyyy";
+
+//Dashboard page
+"dashboard" = "Dashboard";
+"allbooks" = "All Books";
+"myBooks" = "My Books";
+"category" = "Categories";
+"addBook" = "Add Book";
+"profile" = "Profile";
+"status" = "Status";
+"oops" = "OOPS!, List is Empty";
+
+// Category
+ "Horror" = "Horror Books";
+"Comedy" = "Comedy Books";
+"Si-Fi" = "Si-Fi Books";
+"Love" = "Love Books";
+"Biography" = "Biography Books";
+"History" = "History Books";
+"Poetry" = "Poetry Books";
+
+//My Book
+"read" = "Read";
+"want" = "Want To Read";
+"reading" = "Currently Reading";
+
+//Add Book
+"addImage" = "Add Image";
+"bookTitle" = "Enter Book Title";
+"description" = "Enter Description";
+"save" = "Save";
+"cancel" = "Cancel";
+"imageError" = "Select the Image";
+"imageMessage" = "Looks like no image were added for the book";
+"titleMessage" = "Looks like Title is not filled";
+"selectCategory" = "Select the Category";
+"categoryMessage" = "Looks like Category is not selected";
+
+// Profile
+"update" = "Update";
+"logout" = "Logout";
+"emailError" = "Email Already Took";
+"emailMessage" = "Email is Already registered, Please try with another Email";
+
+//
+"pdf" = "PDF Viewer";
