@@ -2,7 +2,7 @@
 //  Book+CoreDataProperties.swift
 //  TheLib
 //
-//  Created by Ideas2it on 05/05/23.
+//  Created by Ideas2it on 09/05/23.
 //
 //
 
@@ -25,24 +25,7 @@ extension Book {
     @NSManaged public var is_deleted: Bool
     @NSManaged public var title: String?
     @NSManaged public var updated_date: Date?
-    @NSManaged public var forUser: NSSet?
-
-}
-
-// MARK: Generated accessors for forUser
-extension Book {
-
-    @objc(addForUserObject:)
-    @NSManaged public func addToForUser(_ value: UserBook)
-
-    @objc(removeForUserObject:)
-    @NSManaged public func removeFromForUser(_ value: UserBook)
-
-    @objc(addForUser:)
-    @NSManaged public func addToForUser(_ values: NSSet)
-
-    @objc(removeForUser:)
-    @NSManaged public func removeFromForUser(_ values: NSSet)
+    @NSManaged public var created_by: String?
 
 }
 

@@ -11,8 +11,8 @@ class BookDetailViewController: UIViewController {
     
     @IBOutlet weak var booksTable: UITableView!
     
-    var bookStatus : BookStatus = .readNone
-    var userBooks = [UserBook]()
+    var bookStatus : BookStatus = .wantToRead
+    var userBooks : [UserBook] = []
     var bookList = [Book]()
     var selectedIndex : IndexPath?
     var bookViewModel = BookViewModel()
@@ -44,7 +44,7 @@ class BookDetailViewController: UIViewController {
         ])
         
         self.fetchBooks()
-        if 0 == bookList.count {
+        if 0 == userBooks.count {
             booksTable.isHidden = true
         } else {
             booksTable.isHidden = false
@@ -60,34 +60,38 @@ class BookDetailViewController: UIViewController {
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
         
 //        let bookIds = userBooks.map { $0.book }
-        var book = Book()
-        for userBook in userBooks {
-            if let bookId = userBook.book_id {
-                if let Rbook = bookViewModel.fetchBook(bookId: bookId) {
-                    book = Rbook
-                    bookList.append(book)
-                }
-            }
-        }
+//        var book = Book()
+//        for userBook in userBooks {
+//            if let bookId = userBook.book_id {
+//                if let Rbook = bookViewModel.fetchBook(bookId: bookId) {
+//                    book = Rbook
+//                    bookList.append(book)
+//                }
+//            }
+//        }
         booksTable.reloadData()
     }
 
 }
 extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookList.count
+        return userBooks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
         var selectedBookStatus = String()
-        let book = bookList[indexPath.row]
-        cell.bookImage.image = UIImage(data: book.book_image!)
+        let book = userBooks[indexPath.row].books
+        if let imageData = book?.book_image, let image = UIImage(data: imageData) {
+            cell.bookImage.image = image
+        }
         cell.bookTitle.font = Constants.bookTitleFont
-        cell.bookTitle.text = book.title
+        if let title = book?.title {
+            cell.bookTitle.text = title
+        }
         cell.statusLabel.font = Constants.statusLableFont
         
-        if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == book.book_id}) {
+        if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == book?.book_id}) {
             if let sts = userBooks[selectedBookIndex].status {
                 selectedBookStatus = sts
             }
@@ -121,6 +125,7 @@ extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource {
             cell.opt1.setTitleColor(UIColor.black, for: .normal)
             cell.opt2.setTitleColor(UIColor.black, for: .normal)
             cell.opt3.setTitleColor(UIColor.black, for: .normal)
+            
             // Highlighting the Selected status
             switch selectedBookStatus {
             case BookStatus.reading.rawValue:
@@ -153,9 +158,9 @@ extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func changeStatus(sender: UIButton) {
-        var bookStatus = BookStatus.readNone.rawValue
+        var bookStatus = BookStatus.wantToRead.rawValue
         let indexPath = IndexPath(row: sender.tag, section: 0)
-        let selectedBook = self.bookList[sender.tag]
+        let selectedBook = self.userBooks[sender.tag].books
         let cell = booksTable.cellForRow(at: indexPath) as! BookTableViewCell
         
         switch sender {
@@ -173,7 +178,7 @@ extension BookDetailViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.statusLabel.text = "Hi"
 //        bookStatus
-        if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == selectedBook.book_id}) {
+        if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == selectedBook?.book_id}) {
             userBooks[selectedBookIndex].status = bookStatus
         }
         self.selectedIndex = nil

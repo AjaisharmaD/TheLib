@@ -52,12 +52,12 @@
 		FBD4423C2A038F4A00030054 /* DarkModeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBD4423A2A038F4A00030054 /* DarkModeTableViewCell.xib */; };
 		FBD4423E2A03AD7100030054 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4423D2A03AD7100030054 /* PDFViewController.swift */; };
 		FBD442412A03B40900030054 /* Attitude is Everything.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FBD442402A03B40900030054 /* Attitude is Everything.pdf */; };
-		FBD442602A04E5B200030054 /* UserBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425A2A04E5B200030054 /* UserBook+CoreDataClass.swift */; };
-		FBD442612A04E5B200030054 /* UserBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425B2A04E5B200030054 /* UserBook+CoreDataProperties.swift */; };
-		FBD442622A04E5B200030054 /* Book+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425C2A04E5B200030054 /* Book+CoreDataClass.swift */; };
-		FBD442632A04E5B200030054 /* Book+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425D2A04E5B200030054 /* Book+CoreDataProperties.swift */; };
-		FBD442642A04E5B200030054 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425E2A04E5B200030054 /* User+CoreDataClass.swift */; };
-		FBD442652A04E5B200030054 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD4425F2A04E5B200030054 /* User+CoreDataProperties.swift */; };
+		FBD4427A2A0A473000030054 /* Book+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442742A0A473000030054 /* Book+CoreDataClass.swift */; };
+		FBD4427B2A0A473000030054 /* Book+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442752A0A473000030054 /* Book+CoreDataProperties.swift */; };
+		FBD4427C2A0A473000030054 /* UserBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442762A0A473000030054 /* UserBook+CoreDataClass.swift */; };
+		FBD4427D2A0A473000030054 /* UserBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442772A0A473000030054 /* UserBook+CoreDataProperties.swift */; };
+		FBD4427E2A0A473000030054 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442782A0A473000030054 /* User+CoreDataClass.swift */; };
+		FBD4427F2A0A473000030054 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442792A0A473000030054 /* User+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,12 +114,12 @@
 		FBD4423A2A038F4A00030054 /* DarkModeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DarkModeTableViewCell.xib; sourceTree = "<group>"; };
 		FBD4423D2A03AD7100030054 /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		FBD442402A03B40900030054 /* Attitude is Everything.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Attitude is Everything.pdf"; sourceTree = "<group>"; };
-		FBD4425A2A04E5B200030054 /* UserBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserBook+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		FBD4425B2A04E5B200030054 /* UserBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserBook+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		FBD4425C2A04E5B200030054 /* Book+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		FBD4425D2A04E5B200030054 /* Book+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		FBD4425E2A04E5B200030054 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		FBD4425F2A04E5B200030054 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442742A0A473000030054 /* Book+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442752A0A473000030054 /* Book+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442762A0A473000030054 /* UserBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserBook+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442772A0A473000030054 /* UserBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserBook+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442782A0A473000030054 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442792A0A473000030054 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,12 +216,12 @@
 		FB72493429D5E72400278391 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FBD4425A2A04E5B200030054 /* UserBook+CoreDataClass.swift */,
-				FBD4425B2A04E5B200030054 /* UserBook+CoreDataProperties.swift */,
-				FBD4425C2A04E5B200030054 /* Book+CoreDataClass.swift */,
-				FBD4425D2A04E5B200030054 /* Book+CoreDataProperties.swift */,
-				FBD4425E2A04E5B200030054 /* User+CoreDataClass.swift */,
-				FBD4425F2A04E5B200030054 /* User+CoreDataProperties.swift */,
+				FBD442742A0A473000030054 /* Book+CoreDataClass.swift */,
+				FBD442752A0A473000030054 /* Book+CoreDataProperties.swift */,
+				FBD442762A0A473000030054 /* UserBook+CoreDataClass.swift */,
+				FBD442772A0A473000030054 /* UserBook+CoreDataProperties.swift */,
+				FBD442782A0A473000030054 /* User+CoreDataClass.swift */,
+				FBD442792A0A473000030054 /* User+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -453,13 +453,11 @@
 				FB713A5029F7DE0C00AFEB39 /* CategoryViewController.swift in Sources */,
 				FB724B0F29DED66800278391 /* MenuTitle.swift in Sources */,
 				FB7249DD29DC2C5500278391 /* MyBookViewController.swift in Sources */,
-				FBD442632A04E5B200030054 /* Book+CoreDataProperties.swift in Sources */,
 				FB41D1EF29E80FB300150C8C /* SlideViewController.swift in Sources */,
 				FB41D1E429E6E35900150C8C /* BookDetailViewController.swift in Sources */,
 				FB7353B929DFF7CB00F15ABF /* Validation.swift in Sources */,
 				FB73BEFF29F92BFD005A474D /* UserBookViewModel.swift in Sources */,
 				FBD4423E2A03AD7100030054 /* PDFViewController.swift in Sources */,
-				FBD442622A04E5B200030054 /* Book+CoreDataClass.swift in Sources */,
 				FB7353FE29E56B6A00F15ABF /* BookViewModel.swift in Sources */,
 				FBA87FE429F2603E00045084 /* Constants.swift in Sources */,
 				FB41D1ED29E80FB300150C8C /* ContainerViewController.swift in Sources */,
@@ -469,23 +467,25 @@
 				FBD4423B2A038F4A00030054 /* DarkModeTableViewCell.swift in Sources */,
 				FB724B1629DEFBE100278391 /* MyBookTableViewCell.swift in Sources */,
 				FB41D1EC29E80FB300150C8C /* CustomNavigationController.swift in Sources */,
-				FBD442612A04E5B200030054 /* UserBook+CoreDataProperties.swift in Sources */,
-				FBD442642A04E5B200030054 /* User+CoreDataClass.swift in Sources */,
-				FBD442652A04E5B200030054 /* User+CoreDataProperties.swift in Sources */,
+				FBD4427D2A0A473000030054 /* UserBook+CoreDataProperties.swift in Sources */,
 				FB7249AA29D8ADC400278391 /* DashboardViewController.swift in Sources */,
 				FB7353CD29E005F200F15ABF /* UserViewModel.swift in Sources */,
+				FBD4427E2A0A473000030054 /* User+CoreDataClass.swift in Sources */,
+				FBD4427F2A0A473000030054 /* User+CoreDataProperties.swift in Sources */,
 				FBA87FE929F2A78900045084 /* AllBookTableViewCell.swift in Sources */,
 				FB72492229D5E5AF00278391 /* LoginViewController.swift in Sources */,
 				FB724A5029DD4AFC00278391 /* ProfileViewController.swift in Sources */,
+				FBD4427A2A0A473000030054 /* Book+CoreDataClass.swift in Sources */,
 				FB724B1329DEFA3200278391 /* BookStatus.swift in Sources */,
-				FBD442602A04E5B200030054 /* UserBook+CoreDataClass.swift in Sources */,
 				FB7249DA29DBFFB500278391 /* BookTableViewCell.swift in Sources */,
 				FBA87FEC29F2AA6500045084 /* AllBookViewController.swift in Sources */,
 				FB72491E29D5E5AF00278391 /* AppDelegate.swift in Sources */,
+				FBD4427C2A0A473000030054 /* UserBook+CoreDataClass.swift in Sources */,
 				FB41D1EE29E80FB300150C8C /* SlideMenuController.swift in Sources */,
 				FB72499B29D6BD4000278391 /* localizable.swift in Sources */,
 				FB72492029D5E5AF00278391 /* SceneDelegate.swift in Sources */,
 				FB72492829D5E5AF00278391 /* TheLib.xcdatamodeld in Sources */,
+				FBD4427B2A0A473000030054 /* Book+CoreDataProperties.swift in Sources */,
 				FB713A4E29F7B5A000AFEB39 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

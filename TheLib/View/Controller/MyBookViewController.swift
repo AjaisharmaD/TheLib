@@ -53,8 +53,6 @@ class MyBookViewController: UIViewController {
     func fetchBookCount(){
         let userBooks = userBookViewModel.fetchMyBook(email: self.email)
         
-        
-        
         var book = Book()
         for userBook in userBooks {
             if let bookId = userBook.book_id {
@@ -68,12 +66,10 @@ class MyBookViewController: UIViewController {
         let currentlyReading = userBooks.filter { $0.status == BookStatus.reading.rawValue}
         let readAlready = userBooks.filter { $0.status == BookStatus.readAlready.rawValue}
         let wantToRead  = userBooks.filter { $0.status == BookStatus.wantToRead.rawValue}
-        let readNone = userBooks.filter {$0.status == BookStatus.readNone.rawValue}
         
         array = [["title":BookStatus.reading.rawValue, "count":"\(currentlyReading.count)"],
                  ["title":BookStatus.readAlready.rawValue, "count":"\(readAlready.count)"],
-                 ["title":BookStatus.wantToRead.rawValue, "count":"\(wantToRead.count)"],
-                 ["title":BookStatus.readNone.rawValue, "count":"\(readNone.count)"]]
+                 ["title":BookStatus.wantToRead.rawValue, "count":"\(wantToRead.count)"]]
         self.tableView.reloadData()
     }
 }
@@ -100,7 +96,7 @@ extension MyBookViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedOption = array[indexPath.row]
-        let title = selectedOption["title"] ?? BookStatus.readNone.rawValue
+        let title = selectedOption["title"] ?? BookStatus.wantToRead.rawValue
         let bookStatus = BookStatus(rawValue: title)
  
         let bookDetail = storyboard?.instantiateViewController(withIdentifier: "bookDetailScreen") as! BookDetailViewController
@@ -118,12 +114,8 @@ extension MyBookViewController: UITableViewDataSource, UITableViewDelegate {
             bookDetail.bookStatus = .readAlready
             self.navigationController?.pushViewController(bookDetail, animated: true)
             break
-        case .readNone:
-            bookDetail.bookStatus = .readNone
-            self.navigationController?.pushViewController(bookDetail, animated: true)
-            break
         default:
-            bookDetail.bookStatus = .readNone
+            bookDetail.bookStatus = .wantToRead
             self.navigationController?.pushViewController(bookDetail, animated: true)
             break
         }

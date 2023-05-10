@@ -20,7 +20,7 @@ class SlideViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var loginVC: UIViewController!
 
     var SelectedGeneralMenuIndex: IndexPath?
-    var menuIcon = ["house", "books.vertical", "book", "square.stack.3d.down.right", "plus.circle", "person", "rectangle.portrait.and.arrow.forward", ""]
+    var menuIcon = ["house", "plus.circle", "book", "square.stack.3d.down.right", "person", "rectangle.portrait.and.arrow.forward", ""]
 
     private var menuItems = [MenuTitle]()
     
@@ -41,9 +41,9 @@ class SlideViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.dashboardVC = displayDashboard
         
         //All Books
-        let allBook = storyboard.instantiateViewController(withIdentifier: "AllBookScreen") as! AllBookViewController
-        let displayAllBooks = CustomNavigationController(rootViewController: allBook)
-        self.allBooksVC = displayAllBooks
+//        let allBook = storyboard.instantiateViewController(withIdentifier: "AllBookScreen") as! AllBookViewController
+//        let displayAllBooks = CustomNavigationController(rootViewController: allBook)
+//        self.allBooksVC = displayAllBooks
         
         //My Book
         let myBook = storyboard.instantiateViewController(withIdentifier: "MyBookViewScreen") as! MyBookViewController
@@ -116,7 +116,7 @@ class SlideViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if 7 == indexPath.row {
+        if 6 == indexPath.row {
             let darkModeCell = tableView.dequeueReusableCell(withIdentifier: "DarkModeTableViewCell", for: indexPath) as! DarkModeTableViewCell
             
             darkModeCell.label.text = "Change theme"
@@ -160,12 +160,6 @@ class SlideViewController: UIViewController, UITableViewDelegate, UITableViewDat
         case .dashboard :
             DispatchQueue.main.async {
                 self.slideMenuController()?.changeMainViewController(self.dashboardVC, close: true)
-            }
-            break
-            
-        case .allBook:
-            DispatchQueue.main.async {
-                self.slideMenuController()?.changeMainViewController(self.allBooksVC, close: true)
             }
             break
             

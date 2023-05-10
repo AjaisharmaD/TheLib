@@ -9,10 +9,9 @@ import UIKit
 
 enum MenuTitle: String, CaseIterable {
     case dashboard = "Dashboard"
-    case allBook = "All Books"
+    case addBook = "Add Book"
     case myBook = "My Books"
     case category = "Category"
-    case addBook = "Add Book"
     case profile = "Profile"
     case logout = "Logout"
     case theme = "Theme"
