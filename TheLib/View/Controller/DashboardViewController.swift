@@ -23,8 +23,6 @@ class DashboardViewController: UIViewController {
     
     let defaultBooks : [String:Book] = [:]
     
-    
-
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var allBooksTable: UITableView!
@@ -114,15 +112,7 @@ class DashboardViewController: UIViewController {
     
     func updateUI(){
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
-         
         allBooks = bookViewModel.fetchAllBooks()
-        
-//        if 0 == allBooks.count {
-//            allBooksTable.isHidden = true
-//        } else {
-//            myBooksTable.isHidden = true
-//            addBookImage.isHidden = false
-//        }
         self.myBooksTable.reloadData()
         self.allBooksTable.reloadData()
     }
