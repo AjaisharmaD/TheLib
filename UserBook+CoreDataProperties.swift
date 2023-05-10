@@ -2,7 +2,7 @@
 //  UserBook+CoreDataProperties.swift
 //  TheLib
 //
-//  Created by Ideas2it on 05/05/23.
+//  Created by Ideas2it on 09/05/23.
 //
 //
 
@@ -19,8 +19,7 @@ extension UserBook {
     @NSManaged public var book_id: String?
     @NSManaged public var status: String?
     @NSManaged public var user_email: String?
-    @NSManaged public var toUser: User?
-    @NSManaged public var toBook: Book?
+    @NSManaged public var books: Book?
 
 }
 

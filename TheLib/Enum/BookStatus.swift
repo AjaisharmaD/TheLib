@@ -11,5 +11,4 @@ enum BookStatus: String, CaseIterable {
     case reading = "Currently Reading"
     case wantToRead = "Want To Read"
     case readAlready = "Read Already"
-    case readNone = "None"
 }

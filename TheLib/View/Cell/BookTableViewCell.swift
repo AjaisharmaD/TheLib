@@ -29,7 +29,7 @@ class BookTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         
         // Status Lable
-        statusLabel.text = BookStatus.readNone.rawValue
+        statusLabel.text = BookStatus.wantToRead.rawValue
         
         //Menu View
         menuView.isHidden = true

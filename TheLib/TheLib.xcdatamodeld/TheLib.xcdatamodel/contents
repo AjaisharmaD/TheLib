@@ -6,6 +6,7 @@
         <attribute name="book_id" optional="YES" attributeType="String"/>
         <attribute name="book_image" optional="YES" attributeType="Binary"/>
         <attribute name="catagory" optional="YES" attributeType="String"/>
+        <attribute name="created_by" optional="YES" attributeType="String"/>
         <attribute name="created_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="is_deleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -23,5 +24,6 @@
         <attribute name="book_id" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="user_email" optional="YES" attributeType="String"/>
+        <relationship name="books" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book"/>
     </entity>
 </model>

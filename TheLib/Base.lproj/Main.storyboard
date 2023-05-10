@@ -111,26 +111,54 @@
                                     <outlet property="delegate" destination="oKO-gj-8VV" id="rYx-ia-1hW"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ltd-bI-IiS">
-                                <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PoN-Ea-nLb">
+                                <rect key="frame" x="0.0" y="115" width="393" height="32"/>
+                                <segments>
+                                    <segment title="All Books"/>
+                                    <segment title="My Books"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RJy-L0-oMt">
+                                <rect key="frame" x="0.0" y="146" width="393" height="672"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="ux6-I5-8x3"/>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="vaP-cJ-kgn"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-rO-xUm">
+                                <rect key="frame" x="0.0" y="146" width="393" height="672"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="92Z-kI-jnk"/>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="8b7-b7-rPK"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xbo-dq-Zgi"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="bottom" secondItem="ltd-bI-IiS" secondAttribute="bottom" id="40n-2O-gmK"/>
-                            <constraint firstItem="ltd-bI-IiS" firstAttribute="top" secondItem="Ok3-ek-jRU" secondAttribute="bottom" id="7iZ-Rw-YeY"/>
-                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="ltd-bI-IiS" secondAttribute="trailing" id="EHW-N5-6T2"/>
+                            <constraint firstItem="PoN-Ea-nLb" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="4mg-5D-3od"/>
+                            <constraint firstItem="O9n-rO-xUm" firstAttribute="bottom" secondItem="RJy-L0-oMt" secondAttribute="bottom" id="5BO-J7-KFn"/>
+                            <constraint firstItem="O9n-rO-xUm" firstAttribute="trailing" secondItem="RJy-L0-oMt" secondAttribute="trailing" id="76x-Ie-fAh"/>
+                            <constraint firstItem="PoN-Ea-nLb" firstAttribute="top" secondItem="Ok3-ek-jRU" secondAttribute="bottom" id="987-pv-IkZ"/>
+                            <constraint firstItem="O9n-rO-xUm" firstAttribute="leading" secondItem="RJy-L0-oMt" secondAttribute="leading" id="9kR-cV-MSd"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="PoN-Ea-nLb" secondAttribute="trailing" id="D1p-6h-Ra5"/>
                             <constraint firstItem="Ok3-ek-jRU" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="HJq-kQ-QYm"/>
-                            <constraint firstItem="ltd-bI-IiS" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="TRc-mz-12t"/>
+                            <constraint firstItem="RJy-L0-oMt" firstAttribute="top" secondItem="PoN-Ea-nLb" secondAttribute="bottom" id="RQC-Uo-caX"/>
                             <constraint firstItem="Ok3-ek-jRU" firstAttribute="top" secondItem="xbo-dq-Zgi" secondAttribute="top" id="W5F-F3-dYJ"/>
                             <constraint firstItem="Ok3-ek-jRU" firstAttribute="trailing" secondItem="xbo-dq-Zgi" secondAttribute="trailing" id="bUV-gX-uXq"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="bottom" secondItem="RJy-L0-oMt" secondAttribute="bottom" id="jKX-2b-y1K"/>
+                            <constraint firstItem="RJy-L0-oMt" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="kl0-dc-JqN"/>
+                            <constraint firstItem="O9n-rO-xUm" firstAttribute="top" secondItem="RJy-L0-oMt" secondAttribute="top" id="oTS-yd-eu4"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="RJy-L0-oMt" secondAttribute="trailing" id="zS2-mL-LrK"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="booksTable" destination="ltd-bI-IiS" id="1w8-G0-RhE"/>
+                        <outlet property="allBooksTable" destination="RJy-L0-oMt" id="9db-wi-Xfu"/>
+                        <outlet property="myBooksTable" destination="O9n-rO-xUm" id="wXt-cQ-J2g"/>
                         <outlet property="searchBar" destination="Ok3-ek-jRU" id="xGr-oZ-Hq9"/>
+                        <outlet property="segmentedControl" destination="PoN-Ea-nLb" id="l8U-Ov-wMy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Krf-a3-hu0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -452,23 +480,12 @@
                                             <constraint firstAttribute="bottom" secondItem="rfA-9s-yuG" secondAttribute="bottom" id="xTs-fC-Hh7"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ozy-rB-xF2">
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvV-px-GA4">
                                         <rect key="frame" x="0.0" y="340" width="333" height="200"/>
-                                        <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zrl-fh-eWZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="333" height="200"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="zrl-fh-eWZ" secondAttribute="bottom" id="3jR-Bz-Sq0"/>
-                                            <constraint firstItem="zrl-fh-eWZ" firstAttribute="leading" secondItem="Ozy-rB-xF2" secondAttribute="leading" id="9s3-TJ-2Tz"/>
-                                            <constraint firstAttribute="trailing" secondItem="zrl-fh-eWZ" secondAttribute="trailing" id="YyW-7o-HtW"/>
-                                            <constraint firstItem="zrl-fh-eWZ" firstAttribute="top" secondItem="Ozy-rB-xF2" secondAttribute="top" id="mLS-9h-h6c"/>
-                                            <constraint firstAttribute="height" constant="200" id="wgY-WL-rw8"/>
+                                            <constraint firstAttribute="height" constant="200" id="gZ8-kv-n1w"/>
                                         </constraints>
-                                    </view>
+                                    </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQd-sq-K9l">
                                         <rect key="frame" x="0.0" y="540" width="333" height="35"/>
                                         <constraints>
@@ -487,20 +504,20 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Ozy-rB-xF2" firstAttribute="top" secondItem="Tfc-ec-hsh" secondAttribute="bottom" id="099-8a-SKa"/>
-                                    <constraint firstItem="NQd-sq-K9l" firstAttribute="top" secondItem="Ozy-rB-xF2" secondAttribute="bottom" id="0aE-Fs-XCT"/>
                                     <constraint firstAttribute="trailing" secondItem="nS4-12-PRn" secondAttribute="trailing" id="1D4-zP-a9f"/>
                                     <constraint firstItem="Xgg-RB-fr3" firstAttribute="top" secondItem="nnE-da-UiS" secondAttribute="bottom" id="3J9-Ao-mVy"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ozy-rB-xF2" secondAttribute="trailing" id="4kf-bZ-0gz"/>
                                     <constraint firstAttribute="trailing" secondItem="Xgg-RB-fr3" secondAttribute="trailing" id="6if-zN-lc7"/>
+                                    <constraint firstItem="vvV-px-GA4" firstAttribute="leading" secondItem="DwZ-ri-1o1" secondAttribute="leading" id="7M8-31-89h"/>
                                     <constraint firstItem="Xgg-RB-fr3" firstAttribute="leading" secondItem="DwZ-ri-1o1" secondAttribute="leading" id="8NY-Dk-ir0"/>
                                     <constraint firstItem="nnE-da-UiS" firstAttribute="leading" secondItem="DwZ-ri-1o1" secondAttribute="leading" id="9hE-Ai-Wh1"/>
-                                    <constraint firstItem="Ozy-rB-xF2" firstAttribute="leading" secondItem="DwZ-ri-1o1" secondAttribute="leading" id="GGd-S0-VXM"/>
                                     <constraint firstAttribute="trailing" secondItem="eua-fL-EwT" secondAttribute="trailing" id="H6Q-lK-IIg"/>
                                     <constraint firstItem="eua-fL-EwT" firstAttribute="top" secondItem="nS4-12-PRn" secondAttribute="bottom" id="O06-Po-XD9"/>
+                                    <constraint firstItem="NQd-sq-K9l" firstAttribute="top" secondItem="vvV-px-GA4" secondAttribute="bottom" id="O6O-9y-DaJ"/>
                                     <constraint firstAttribute="trailing" secondItem="nnE-da-UiS" secondAttribute="trailing" id="R2O-PJ-4RZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Tfc-ec-hsh" secondAttribute="trailing" id="S6K-vf-4Q5"/>
                                     <constraint firstItem="eua-fL-EwT" firstAttribute="leading" secondItem="DwZ-ri-1o1" secondAttribute="leading" id="Xg3-UQ-5mw"/>
+                                    <constraint firstItem="vvV-px-GA4" firstAttribute="top" secondItem="Tfc-ec-hsh" secondAttribute="bottom" id="efu-rY-gFe"/>
+                                    <constraint firstAttribute="trailing" secondItem="vvV-px-GA4" secondAttribute="trailing" id="fYc-0V-ZIG"/>
                                     <constraint firstItem="nS4-12-PRn" firstAttribute="top" secondItem="DwZ-ri-1o1" secondAttribute="top" id="gPf-wM-j15"/>
                                     <constraint firstItem="nnE-da-UiS" firstAttribute="top" secondItem="eua-fL-EwT" secondAttribute="bottom" id="hA0-cb-sCZ"/>
                                     <constraint firstItem="Tfc-ec-hsh" firstAttribute="top" secondItem="Xgg-RB-fr3" secondAttribute="bottom" id="jqc-hd-dnw"/>
@@ -525,11 +542,10 @@
                         <outlet property="bookTitleTF" destination="nnE-da-UiS" id="jfB-GZ-paE"/>
                         <outlet property="cancelBtn" destination="yxg-xw-Pmp" id="MkH-Fg-Uyl"/>
                         <outlet property="categoryLable" destination="vWF-b8-ag8" id="nMH-mU-rOK"/>
+                        <outlet property="categoryPicker" destination="vvV-px-GA4" id="D8z-vH-hl1"/>
                         <outlet property="categoryView" destination="Tfc-ec-hsh" id="oTK-oM-MfI"/>
                         <outlet property="containerStack" destination="DwZ-ri-1o1" id="hPT-cm-PkL"/>
                         <outlet property="dropDownBtn" destination="rfA-9s-yuG" id="5Cv-Db-NQo"/>
-                        <outlet property="menuTable" destination="zrl-fh-eWZ" id="Q0k-aq-ERH"/>
-                        <outlet property="menuView" destination="Ozy-rB-xF2" id="VRm-Wz-vIJ"/>
                         <outlet property="saveButton" destination="NQd-sq-K9l" id="elg-Xc-uFo"/>
                     </connections>
                 </viewController>

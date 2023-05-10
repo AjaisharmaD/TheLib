@@ -10,19 +10,25 @@ import PDFKit
 
 class DashboardViewController: UIViewController {
 
-    var myBook : MyBookViewController!
     var userBookViewModel = UserBookViewModel()
     var userViewModel = UserViewModel()
     var bookViewModel = BookViewModel()
     var userBooks : [UserBook] = []
     var allBooks : [Book] = []
+    var myBooks : [Book] = []
     var filteredBooks: [Book] = []
     var selectedIndex : IndexPath?
-    let emptyLabel = UILabel()
+    let addBookImage = UIImageView()
     var email = String()
+    
+    let defaultBooks : [String:Book] = [:]
+    
+    
 
-    @IBOutlet weak var booksTable: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var allBooksTable: UITableView!
+    @IBOutlet weak var myBooksTable: UITableView!
     
     private let floatingButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
@@ -40,32 +46,51 @@ class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerBookTable()
+        
+        segmentedControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
+        myBooksTable.isHidden = true
         
         if let userEmail = UserDefaults.standard.string(forKey: "userEmail") {
             print("****************************\(userEmail)*************************************")
             email = userEmail
         }
         
+        addBookImage.image = UIImage(systemName: "plus")
+        addBookImage.center = view.center
+        addBookImage.isHidden = true
+        view.addSubview(addBookImage)
         self.view.addSubview(floatingButton)
-        emptyLabel.textAlignment = .center
-        emptyLabel.text = setText(text: "oops")
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(emptyLabel)
         
-        NSLayoutConstraint.activate([
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
         floatingButton.addTarget(self,
                                  action:#selector(goToAddBook),
                                  for: .touchUpInside)
+        floatingButton.isHidden = true
         
         navigationItem.title = setText(text: "dashboard")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal"),
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didMenuPressed))
-        registerBookTable()
+    }
+    
+    @objc func segmentChanged() {
+        let segmentIndex = segmentedControl.selectedSegmentIndex
+        
+        switch segmentIndex {
+        case 0:
+            allBooksTable.isHidden = false
+            floatingButton.isHidden = true
+            myBooksTable.isHidden = true
+            break
+        case 1:
+            allBooksTable.isHidden = true
+            myBooksTable.isHidden = false
+            floatingButton.isHidden = false
+            break
+        default:
+            break
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,46 +103,28 @@ class DashboardViewController: UIViewController {
     }
     
     private func registerBookTable() {
-        booksTable.dataSource = self
-        booksTable.delegate = self
-        booksTable.estimatedRowHeight = 310
-        booksTable.register(UINib(nibName: "BookTableViewCell", bundle: nil),
+        allBooksTable.estimatedRowHeight = 310
+        allBooksTable.register(UINib(nibName: "AllBookTableViewCell", bundle: nil),
+                               forCellReuseIdentifier: "AllBookTableViewCell")
+        
+        myBooksTable.estimatedRowHeight = 310
+        myBooksTable.register(UINib(nibName: "BookTableViewCell", bundle: nil),
                             forCellReuseIdentifier: "BookTableViewCell")
     }
     
     func updateUI(){
-        let user = userViewModel.fetchUserByEmail(email: self.email)
-        
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
+         
+        allBooks = bookViewModel.fetchAllBooks()
         
-//        if let books = userBooks.map ({$0.toBook}) {
-//            allBooks = books
+//        if 0 == allBooks.count {
+//            allBooksTable.isHidden = true
+//        } else {
+//            myBooksTable.isHidden = true
+//            addBookImage.isHidden = false
 //        }
-        
-//        allBooks =
-//        user?.books?.allObjects as! [Book]
-        
-//        allBooks = user?.bookOf
-//        let userBook = user?.bookOf
-//        allBooks =
-//        allBooks = bookViewModel.fetchBook(bookId: userBook?.book_id)
-        
-//        userBooks = userBookViewModel.fetchMyBook(email: self.email)
-        
-//        allBooks = userBooks.map { $0.book }
-        
-//        let bookIds = allBooks.map { $0.book_id }
-//        userBooks.map { $0.book_id }
-//        let books = bookViewModel.fetchAllBooks()
-//        allBooks = books.filter{bookIds.contains($0.book_id)}
-        
-        if 0 == allBooks.count {
-            booksTable.isHidden = true
-        } else {
-            booksTable.isHidden = false
-            emptyLabel.isHidden = true
-        }
-        self.booksTable.reloadData()
+        self.myBooksTable.reloadData()
+        self.allBooksTable.reloadData()
     }
     
     @objc func goToAddBook() {
@@ -138,83 +145,133 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if 0 != filteredBooks.count {
-            return self.filteredBooks.count
+        var rowCount = 0
+        
+        if tableView == allBooksTable {
+            if 0 != filteredBooks.count {
+                rowCount = self.filteredBooks.count
+            } else {
+                rowCount = self.allBooks.count
+            }
         } else {
-            return self.allBooks.count
+            if 0 != filteredBooks.count {
+                rowCount = self.filteredBooks.count
+            } else {
+                rowCount = self.userBooks.count
+            }
         }
+        return rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
         var book = Book()
         
-        if 0 != filteredBooks.count {
-            book = filteredBooks[indexPath.row]
-        } else {
-            book = allBooks[indexPath.row]
-        }
-        
-        if let imageData = book.book_image, let image = UIImage(data: imageData) {
-            cell.bookImage.image = image
-        }
-        cell.bookTitle.text = book.title
-        cell.bookTitle.font = Constants.bookTitleFont
-        var selectedBookStatus = String()
-        
-        if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == book.book_id}) {
-            if let sts = userBooks[selectedBookIndex].status {
-                selectedBookStatus = sts
+        if tableView == allBooksTable {
+            let allBookCell = tableView.dequeueReusableCell(withIdentifier: "AllBookTableViewCell", for: indexPath) as! AllBookTableViewCell
+            
+            if 0 != filteredBooks.count {
+                book = filteredBooks[indexPath.row]
+            } else {
+                book = allBooks[indexPath.row]
+                allBookCell.bookTitle.text = book.title
+                
+                if let imageData = book.book_image, let image = UIImage(data: imageData) {
+                    allBookCell.bookImage.image = image
+                }
+                allBookCell.authorLable.text = book.author
+                
+                if book.created_by == self.email {
+                    allBookCell.addButton.isEnabled = false
+                } else {
+                    allBookCell.addButton.isEnabled = true
+                    allBookCell.addButton.tag = indexPath.row
+                    allBookCell.addButton.addTarget(self, action: #selector(addToMyBooks(_:)), for: .touchUpInside)
+                }
+                
             }
-        }
-        cell.statusLabel.text = selectedBookStatus
-        cell.statusLabel.font = Constants.statusLableFont
-        cell.tag = indexPath.row
-        cell.downBtn.tag = indexPath.row
-        cell.downBtn.addTarget(self,
-                               action: #selector(didDropDownPressed(sender:)),
-                               for: .touchUpInside)
-        
-        if let currentIndex = self.selectedIndex, currentIndex == indexPath {
-            cell.menuView.isHidden = false
+            return allBookCell
+        } else {
+            let myBookCell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
             
-            cell.opt1.setTitle(BookStatus.reading.rawValue, for: .normal)
-            cell.opt1.tag = cell.tag
-            cell.opt1.addTarget(self,
-                                action: #selector(changeStatus(sender:)),
-                                for: .touchUpInside)
-            cell.opt2.setTitle(BookStatus.wantToRead.rawValue, for: .normal)
-            cell.opt2.tag = cell.tag
-            cell.opt2.addTarget(self,
-                                action: #selector(changeStatus(sender:)),
-                                for: .touchUpInside)
-            cell.opt3.setTitle(BookStatus.readAlready.rawValue, for: .normal)
-            cell.opt3.tag = cell.tag
-            cell.opt3.addTarget(self,
-                                action: #selector(changeStatus(sender:)),
-                                for: .touchUpInside)
-            
-            cell.opt1.setTitleColor(UIColor.black, for: .normal)
-            cell.opt2.setTitleColor(UIColor.black, for: .normal)
-            cell.opt3.setTitleColor(UIColor.black, for: .normal)
+            if 0 != filteredBooks.count {
+                book = filteredBooks[indexPath.row]
+            } else {
+                if let book = userBooks[indexPath.row].books {
+                    if let imageData = book.book_image, let image = UIImage(data: imageData) {
+                        myBookCell.bookImage.image = image
+                    }
+                    myBookCell.bookTitle.text = book.title
+                    myBookCell.bookTitle.font = Constants.bookTitleFont
+                    var selectedBookStatus = String()
+                    
+                    if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == book.book_id}) {
+                        if let sts = userBooks[selectedBookIndex].status {
+                            selectedBookStatus = sts
+                        }
+                    }
+                    myBookCell.statusLabel.text = selectedBookStatus
+                    myBookCell.statusLabel.font = Constants.statusLableFont
+                    myBookCell.tag = indexPath.row
+                    myBookCell.downBtn.tag = indexPath.row
+                    myBookCell.downBtn.addTarget(self,
+                                           action: #selector(didDropDownPressed(sender:)),
+                                           for: .touchUpInside)
+                    
+                    if let currentIndex = self.selectedIndex, currentIndex == indexPath {
+                        myBookCell.menuView.isHidden = false
+                        
+                        
+                        myBookCell.opt1.setTitle(BookStatus.reading.rawValue, for: .normal)
+                        myBookCell.opt1.tag = myBookCell.tag
+                        myBookCell.opt1.addTarget(self,
+                                            action: #selector(changeStatus(sender:)),
+                                            for: .touchUpInside)
+                        myBookCell.opt2.setTitle(BookStatus.wantToRead.rawValue, for: .normal)
+                        myBookCell.opt2.tag = myBookCell.tag
+                        myBookCell.opt2.addTarget(self,
+                                            action: #selector(changeStatus(sender:)),
+                                            for: .touchUpInside)
+                        myBookCell.opt3.setTitle(BookStatus.readAlready.rawValue, for: .normal)
+                        myBookCell.opt3.tag = myBookCell.tag
+                        myBookCell.opt3.addTarget(self,
+                                            action: #selector(changeStatus(sender:)),
+                                            for: .touchUpInside)
+                        
+                        myBookCell.opt1.setTitleColor(UIColor.black, for: .normal)
+                        myBookCell.opt2.setTitleColor(UIColor.black, for: .normal)
+                        myBookCell.opt3.setTitleColor(UIColor.black, for: .normal)
 
-            switch selectedBookStatus {
-            case BookStatus.reading.rawValue:
-                cell.opt1.setTitleColor(Constants.selctedItemColor, for: .normal)
-                break
-            case BookStatus.wantToRead.rawValue:
-                cell.opt2.setTitleColor(Constants.selctedItemColor, for: .normal)
-                break
-            case BookStatus.readAlready.rawValue:
-                cell.opt3.setTitleColor(Constants.selctedItemColor, for: .normal)
-                break
-            default:
-                break
+                        switch selectedBookStatus {
+                        case BookStatus.reading.rawValue:
+                            myBookCell.opt1.setTitleColor(Constants.selctedItemColor, for: .normal)
+                            break
+                        case BookStatus.wantToRead.rawValue:
+                            myBookCell.opt2.setTitleColor(Constants.selctedItemColor, for: .normal)
+                            break
+                        case BookStatus.readAlready.rawValue:
+                            myBookCell.opt3.setTitleColor(Constants.selctedItemColor, for: .normal)
+                            break
+                        default:
+                            break
+                        }
+                    } else {
+                        myBookCell.menuView.isHidden = true
+                    }
+                }
             }
-        } else {
-            cell.menuView.isHidden = true
+            return myBookCell
         }
-        return cell
+    }
+    
+    @objc func addToMyBooks(_ sender: UIButton) {
+        let bookToAdd = userBooks[sender.tag].books
+        
+        let userBook = UserBook(context: userBookViewModel.context)
+        userBook.book_id = bookToAdd?.book_id
+        userBook.user_email = self.email
+        userBook.status = BookStatus.wantToRead.rawValue
+        userBook.books = bookToAdd
+        userBookViewModel.saveUserBook()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -222,29 +279,34 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let pdfViewVC = self.storyboard?.instantiateViewController(withIdentifier: "PDFViewScreen") as! PDFViewController
         self.navigationController?.pushViewController(pdfViewVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let book = self.allBooks[indexPath.row]
-        
-        if editingStyle == .delete {
-            book.is_deleted = true
+        if tableView == myBooksTable {
+            if let book = self.userBooks[indexPath.row].books {
+                if editingStyle == .delete {
+                    book.is_deleted = true
+                }
+                bookViewModel.saveBook()
+                self.updateUI()
+                myBooksTable.reloadData()
+            }
         }
-        bookViewModel.saveBook()
-        self.updateUI()
-        booksTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+        if tableView == myBooksTable {
+            let delete = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
                 completionHandler(true)
             }
             let swipeAction = UISwipeActionsConfiguration(actions: [delete])
             swipeAction.performsFirstActionWithFullSwipe = false
             return swipeAction
+        } else {
+            return nil
+        }
     }
     
     @objc func didDropDownPressed(sender: UIButton) {
@@ -255,14 +317,14 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
         } else {
             self.selectedIndex = indexpath
         }
-        booksTable.reloadData()
+        myBooksTable.reloadData()
     }
     
     @objc func changeStatus(sender: UIButton) {
-        var bookStatus = BookStatus.readNone.rawValue
+        var bookStatus = BookStatus.wantToRead.rawValue
         let indexPath = IndexPath(row: sender.tag, section: 0)
         let selectedBook = self.allBooks[sender.tag]
-        let cell = booksTable.cellForRow(at: indexPath) as! BookTableViewCell
+        let cell = myBooksTable.cellForRow(at: indexPath) as! BookTableViewCell
         
         switch sender {
         case cell.opt1:
@@ -278,24 +340,38 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
             break
         }
         cell.statusLabel.text = bookStatus
+        
         if let selectedBookIndex = userBooks.firstIndex(where: {$0.book_id == selectedBook.book_id}) {
             userBooks[selectedBookIndex].status = bookStatus
         }
         userBookViewModel.saveUserBook()
-        booksTable.reloadData()
+        myBooksTable.reloadData()
         self.selectedIndex = nil
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredBooks = searchText.isEmpty ? allBooks : allBooks.filter({ (book: Book) -> Bool in
-            var bookName = String()
-            if let myBookName = book.title {
-                bookName = myBookName
-            }
-            return bookName.range(of: searchText, options: .caseInsensitive) != nil
-        })
+        let segmentIndex = segmentedControl.selectedSegmentIndex
         
-        booksTable.reloadData()
+        if 0 == segmentIndex {
+            filteredBooks = searchText.isEmpty ? allBooks : allBooks.filter({ (book: Book) -> Bool in
+                var bookName = String()
+                if let myBookName = book.title {
+                    bookName = myBookName
+                }
+                return bookName.range(of: searchText, options: .caseInsensitive) != nil
+            })
+            allBooksTable.reloadData()
+        } else {
+            myBooks = userBooks.map({$0.books!})
+            filteredBooks = searchText.isEmpty ? myBooks : myBooks.filter({ (book: Book) -> Bool in
+                var bookName = String()
+                if let myBookName = book.title {
+                    bookName = myBookName
+                }
+                return bookName.range(of: searchText, options: .caseInsensitive) != nil
+            })
+            myBooksTable.reloadData()
+        }
     }
 }
 

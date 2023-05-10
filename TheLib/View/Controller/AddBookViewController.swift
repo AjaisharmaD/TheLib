@@ -18,13 +18,16 @@ class AddBookViewController: UIViewController {
     @IBOutlet weak var categoryView: UIView!
     @IBOutlet weak var categoryLable: UILabel!
     @IBOutlet weak var dropDownBtn: UIButton!
-    // which contains the list of category to set to book
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var menuTable: UITableView!
+//    // which contains the list of category to set to book
+//    @IBOutlet weak var menuView: UIView!
+//    @IBOutlet weak var menuTable: UITableView!
+    
+    @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
     
-    var categories = [Category]()
+    var categories = Category.allCases
+//    [Category]()
     var toggle: Bool = false
     let userViewModel = UserViewModel()
     var bookViewModel = BookViewModel()
@@ -37,9 +40,6 @@ class AddBookViewController: UIViewController {
             print("****************************\(userEmail)*************************************")
             email = userEmail
         }
-        
-        let categoryList = Category.allCases
-        categories = categoryList
         
         //Book Image
         bookImage.layer.borderColor = UIColor.black.cgColor
@@ -69,13 +69,11 @@ class AddBookViewController: UIViewController {
         dropDownBtn.tintColor = Constants.logoTintColor
         dropDownBtn.addTarget(self, action: #selector(didDropDownPressed), for: .touchUpInside)
         
-        //MenuView
-        menuView.isHidden = true
-        
-        // Menu Table
-        menuTable.delegate = self
-        menuTable.dataSource = self
-        menuTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        //MenuPicker
+        categoryPicker.isHidden = true
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+//        menuTable.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         //Save Button
         saveButton.setTitle(setText(text: "save"), for: .normal)
@@ -121,10 +119,10 @@ class AddBookViewController: UIViewController {
     @objc func didDropDownPressed() {
         if !toggle {
             toggle = true
-            menuView.isHidden = false
+            categoryPicker.isHidden = false
         } else {
             toggle = false
-            menuView.isHidden = true
+            categoryPicker.isHidden = true
         }
     }
     
@@ -175,8 +173,8 @@ class AddBookViewController: UIViewController {
     
     // Creating and saving the Book for the User
     private func saveBook(image: Data, title: String, category: String) {
-        var books = [UserBook]()
-        let user = User(context: bookViewModel.context)
+//        var books = [UserBook]()
+//        let user = User(context: bookViewModel.context)
         let book = Book(context: bookViewModel.context)
         let bookId = UUID().uuidString
         book.book_image = image
@@ -185,6 +183,7 @@ class AddBookViewController: UIViewController {
         book.author = getAuthorName(email: self.email)
         book.catagory = category
         book.book_id = bookId
+        book.created_by = self.email
         let date  = Date()
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = setText(text: "dateFormat")
@@ -192,39 +191,59 @@ class AddBookViewController: UIViewController {
         book.updated_date = date
         bookViewModel.saveBook()
         
-        // adding the books to User's Entity
-        
-        
         // Adding a Book and user details to the UserBook entity
         let userBookViewModel = UserBookViewModel()
         let userBook = UserBook(context: userBookViewModel.context)
         userBook.user_email = self.email
         userBook.book_id = bookId
-        userBook.status = BookStatus.readNone.rawValue
-        books.append(userBook)
+        userBook.status = BookStatus.wantToRead.rawValue
+        userBook.books = book
+//        books.append(userBook)
         userBookViewModel.saveUserBook()
         
-        user.books = NSSet(array: books)
-        userViewModel.saveUser()
+//        user.userBook = NSSet(array: books)
+//        userViewModel.saveUser()
     }
     
 }
 
-extension AddBookViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.categories.count
+// Selecting category
+//extension AddBookViewController: UITableViewDelegate, UITableViewDataSource {
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return self.categories.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+//        cell.textLabel?.text = categories[indexPath.row].rawValue
+//        return cell
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        categoryLable.text = categories[indexPath.row].rawValue
+//        menuView.isHidden = true
+//        toggle = false
+//    }
+//}
+
+// Selecting category throgh Picker View
+extension AddBookViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = categories[indexPath.row].rawValue
-        return cell
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        categoryLable.text = categories[indexPath.row].rawValue
-        menuView.isHidden = true
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row].rawValue
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryLable.text = categories[row].rawValue
+        categoryPicker.isHidden = true
         toggle = false
     }
 }
