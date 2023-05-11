@@ -52,16 +52,7 @@ class MyBookViewController: UIViewController {
     
     func fetchBookCount(){
         let userBooks = userBookViewModel.fetchMyBook(email: self.email)
-        
-        var book = Book()
-        for userBook in userBooks {
-            if let bookId = userBook.book_id {
-                if let Rbook = bookViewModel.fetchBook(bookId: bookId) {
-                    book = Rbook
-                }
-            }
-            self.books.append(book)
-        }
+        books = userBooks.compactMap({$0.books})
         
         let currentlyReading = userBooks.filter { $0.status == BookStatus.reading.rawValue}
         let readAlready = userBooks.filter { $0.status == BookStatus.readAlready.rawValue}
@@ -115,8 +106,6 @@ extension MyBookViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.pushViewController(bookDetail, animated: true)
             break
         default:
-//            bookDetail.bookStatus = .wantToRead
-//            self.navigationController?.pushViewController(bookDetail, animated: true)
             break
         }
         

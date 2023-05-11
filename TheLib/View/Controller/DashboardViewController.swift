@@ -125,6 +125,7 @@ class DashboardViewController: UIViewController {
     func updateUI(){
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
         
+        myBooks = userBooks.compactMap({$0.books})
         if 0 == allBooks.count {
             allBooks = defaultBooks
         } else {
@@ -195,7 +196,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
         if tableView == allBooksTable {
             rowCount = filteredAllBooks.isEmpty ? allBooks.count : filteredAllBooks.count
         } else {
-            rowCount = filteredMyBooks.isEmpty ? userBooks.count : filteredMyBooks.count
+            rowCount = filteredMyBooks.isEmpty ? myBooks.count : filteredMyBooks.count
         }
         return rowCount
     }
@@ -210,6 +211,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
                 book = filteredAllBooks[indexPath.row]
             } else {
                 book = allBooks[indexPath.row]
+            }
                 allBookCell.bookTitle.text = book.title
                 
                 if let imageData = book.book_image, let image = UIImage(data: imageData) {
@@ -224,7 +226,6 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
                     allBookCell.addButton.tag = indexPath.row
                     allBookCell.addButton.addTarget(self, action: #selector(addToMyBooks(_:)), for: .touchUpInside)
                 }
-            }
             return allBookCell
         } else {
             let myBookCell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
@@ -232,7 +233,8 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
             if 0 != filteredMyBooks.count {
                 book = filteredMyBooks[indexPath.row]
             } else {
-                if let book = userBooks[indexPath.row].books {
+                book = myBooks[indexPath.row]
+            }
                     if let imageData = book.book_image, let image = UIImage(data: imageData) {
                         myBookCell.bookImage.image = image
                     }
@@ -293,8 +295,6 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
                     } else {
                         myBookCell.menuView.isHidden = true
                     }
-                }
-            }
             return myBookCell
         }
     }
@@ -398,7 +398,6 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
             })
             allBooksTable.reloadData()
         } else {
-            myBooks = userBooks.map({$0.books!})
             filteredMyBooks = searchText.isEmpty ? myBooks : myBooks.filter({ (book: Book) -> Bool in
                 var bookName = String()
                 if let myBookName = book.title {

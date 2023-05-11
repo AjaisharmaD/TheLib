@@ -33,11 +33,10 @@ class CategoryBookViewController: UIViewController {
         booksTable.register(UINib(nibName: "AllBookTableViewCell", bundle: nil),
                             forCellReuseIdentifier: "AllBookTableViewCell")
         self.updateUI()
-        self.fetchBooks()
     }
     
     func updateUI() {
-        allBooks = bookViewModel.fetchAllBooks()
+        allBooks = bookViewModel.fetchByCategory(category: category)
         
         if 0 == allBooks.count {
             booksTable.isHidden = true
@@ -49,11 +48,6 @@ class CategoryBookViewController: UIViewController {
     
     private func setText(text: String) -> String {
         return NSLocalizedString(text, comment: "")
-    }
-    
-    func fetchBooks(){
-        allBooks = bookViewModel.fetchByCategory(category: category)
-        booksTable.reloadData()
     }
 }
 
