@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PDFKit
 
 class CategoryBookViewController: UIViewController {
     
@@ -100,12 +101,21 @@ extension CategoryBookViewController: UITableViewDelegate, UITableViewDataSource
         booksTable.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pdfViewVC = self.storyboard?.instantiateViewController(withIdentifier: "PDFViewScreen") as! PDFViewController
+        self.navigationController?.pushViewController(pdfViewVC, animated: true)
+    }
+    
+    
+    
     @objc func addBookToMyBook(_ sender: UIButton) {
         print("Pressed")
         let bookToAdd = allBooks[sender.tag]
-        let userBook = UserBook(context: userBookViewModel.context)
+        let userBook = UserBook(context: userBookViewModel.ubContext)
         userBook.user_email = self.email
         userBook.book_id = bookToAdd.book_id
         userBookViewModel.saveUserBook()
     }
+    
+    
 }

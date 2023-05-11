@@ -58,6 +58,8 @@
 		FBD4427D2A0A473000030054 /* UserBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442772A0A473000030054 /* UserBook+CoreDataProperties.swift */; };
 		FBD4427E2A0A473000030054 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442782A0A473000030054 /* User+CoreDataClass.swift */; };
 		FBD4427F2A0A473000030054 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442792A0A473000030054 /* User+CoreDataProperties.swift */; };
+		FBD442812A0B7E2B00030054 /* DefaultBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD442802A0B7E2B00030054 /* DefaultBooks.swift */; };
+		FBD442842A0BC62300030054 /* defaultBooks.json in Resources */ = {isa = PBXBuildFile; fileRef = FBD442832A0BC62300030054 /* defaultBooks.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +122,8 @@
 		FBD442772A0A473000030054 /* UserBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserBook+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		FBD442782A0A473000030054 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		FBD442792A0A473000030054 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FBD442802A0B7E2B00030054 /* DefaultBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBooks.swift; sourceTree = "<group>"; };
+		FBD442832A0BC62300030054 /* defaultBooks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = defaultBooks.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,8 +208,8 @@
 				FB72493629D6729000278391 /* View */,
 				FB72493529D6727700278391 /* Localizable */,
 				FB72493429D5E72400278391 /* Model */,
+				FBD442822A0BC5A900030054 /* Resources */,
 				FB72492329D5E5AF00278391 /* Main.storyboard */,
-				FB72492929D5E5B000278391 /* Assets.xcassets */,
 				FB72492B29D5E5B000278391 /* LaunchScreen.storyboard */,
 				FB72492E29D5E5B000278391 /* Info.plist */,
 				FB72492629D5E5AF00278391 /* TheLib.xcdatamodeld */,
@@ -312,6 +316,7 @@
 			children = (
 				FB7353B829DFF7CB00F15ABF /* Validation.swift */,
 				FBA87FE329F2603E00045084 /* Constants.swift */,
+				FBD442802A0B7E2B00030054 /* DefaultBooks.swift */,
 			);
 			path = Utills;
 			sourceTree = "<group>";
@@ -322,6 +327,15 @@
 				FBD442402A03B40900030054 /* Attitude is Everything.pdf */,
 			);
 			path = PDF;
+			sourceTree = "<group>";
+		};
+		FBD442822A0BC5A900030054 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FBD442832A0BC62300030054 /* defaultBooks.json */,
+				FB72492929D5E5B000278391 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,6 +402,7 @@
 			files = (
 				FBA87FEA29F2A78900045084 /* AllBookTableViewCell.xib in Resources */,
 				FB7249D729DBF53100278391 /* TitleTableViewCell.xib in Resources */,
+				FBD442842A0BC62300030054 /* defaultBooks.json in Resources */,
 				FB72492D29D5E5B000278391 /* LaunchScreen.storyboard in Resources */,
 				FB7249DB29DBFFB500278391 /* BookTableViewCell.xib in Resources */,
 				FB724B1729DEFBE100278391 /* MyBookTableViewCell.xib in Resources */,
@@ -456,6 +471,7 @@
 				FB41D1EF29E80FB300150C8C /* SlideViewController.swift in Sources */,
 				FB41D1E429E6E35900150C8C /* BookDetailViewController.swift in Sources */,
 				FB7353B929DFF7CB00F15ABF /* Validation.swift in Sources */,
+				FBD442812A0B7E2B00030054 /* DefaultBooks.swift in Sources */,
 				FB73BEFF29F92BFD005A474D /* UserBookViewModel.swift in Sources */,
 				FBD4423E2A03AD7100030054 /* PDFViewController.swift in Sources */,
 				FB7353FE29E56B6A00F15ABF /* BookViewModel.swift in Sources */,

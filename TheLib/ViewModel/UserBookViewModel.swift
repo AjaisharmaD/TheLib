@@ -4,15 +4,14 @@
 //
 //  Created by Ideas2it on 26/04/23.
 //
-
 import UIKit
 
 public class UserBookViewModel {
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let ubContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func saveUserBook() {
         do {
-            try context.save()
+            try ubContext.save()
         } catch {
             print("error while saving book")
         }
@@ -24,10 +23,15 @@ public class UserBookViewModel {
         do {
             let req = UserBook.fetchRequest()
             req.predicate = NSPredicate(format: "user_email = %@", email)
-            books = try context.fetch(req)
+            books = try ubContext.fetch(req)
         } catch {
             print("error while fetching the Books")
         }
         return books
+    }
+    
+    func deleteMyBook(book: UserBook) {
+            ubContext.delete(book)
+            saveUserBook()
     }
 }

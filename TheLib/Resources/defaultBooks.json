@@ -1,0 +1,124 @@
+{
+"books": [
+{
+"title": "The Great Gatsby",
+"author": "F. Scott Fitzgerald",
+"category": "Fiction",
+"image": "The Great Gatsby"
+},
+{
+"title": "To Kill a Mockingbird",
+"author": "Harper Lee",
+"category": "Fiction",
+"image": "Mockingbird"
+},
+{
+"title": "Sapiens: A Brief History of Humankind",
+"author": "Yuval Noah Harari",
+"category": "Non Fiction",
+"image": "Sapiens"
+},
+{
+"title": "The Immortal Life of Henrietta Lacks",
+"author": "Rebecca Skloot",
+"category": "Non Fiction",
+"image": "The Immortal Life of Henrietta Lacks"
+},
+{
+"title": "The Girl with the Dragon Tattoo",
+"author": "Stieg Larsson",
+"category": "Mystery",
+"image": "The Girl with the Dragon Tattoo"
+},
+{
+"title": "The Hound of the Baskervilles",
+"author": "Arthur Conan Doyle",
+"category": "Mystery",
+"image": "The Hound of the Baskervilles"
+},
+{
+"title": "Pride and Prejudice",
+"author": "Jane Austen",
+"category": "Love",
+"image": "Pride and Prejudice"
+},
+{
+"title": "The Notebook",
+"author": "Nicholas Sparks",
+"category": "Love",
+"image": "The Notebook"
+},
+{
+"title": "Ender's Game",
+"author": "Orson Scott Card",
+"category": "Si-Fi",
+"image": "Ender's Game"
+},
+{
+"title": "Dune",
+"author": "Frank Herbert",
+"category": "Si-Fi",
+"image": "Dune"
+},
+{
+"title": "The Lord of the Rings",
+"author": "J.R.R. Tolkien",
+"category": "Fantasy",
+"image": "The Lord of the Rings"
+},
+{
+"title": "A Song of Ice and Fire",
+"author": "George R.R. Martin",
+"category": "Fantasy",
+"image": "A Song of Ice and Fire"
+},
+{
+"title": "Educated",
+"author": "Tara Westover",
+"category": "Memoir",
+"image": "Educated"
+},
+{
+"title": "The Glass Castle",
+"author": "Jeannette Walls",
+"category": "Memoir",
+"image": "The Glass Castle"
+},
+{
+"title": "The Guns of August",
+"author": "Barbara Tuchman",
+"category": "History",
+"image": "The Guns of August"
+},
+{
+"title": "1776",
+"author": "David McCullough",
+"category": "History",
+"image": "1776"
+},
+{
+"title": "Becoming",
+"author": "Michelle Obama",
+"category": "Biography",
+"image": "Becoming"
+},
+{
+"title": "Steve Jobs",
+"author": "Walter Isaacson",
+"category": "Biography",
+"image": "Steve Jobs"
+},
+{
+"title": "The Waste Land",
+"author": "T.S. Eliot",
+"category": "Poetry",
+"image": "The Waste Land"
+},
+{
+"title": "Leaves of Grass",
+"author": "Walt Whitman",
+"category": "Poetry",
+"image": "Leaves of Grass"
+}
+]
+}

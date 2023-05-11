@@ -106,7 +106,7 @@ extension AllBookViewController: UITableViewDelegate, UITableViewDataSource, UIS
     @objc func addBookToMyBook(_ sender: UIButton) {
         let bookToAdd = allBooks[sender.tag]
 //        bookToAdd.user_email = self.email
-        var userBook = UserBook(context: userBookViewModel.context)
+        var userBook = UserBook(context: userBookViewModel.ubContext)
         userBook.book_id = bookToAdd.book_id
         userBook.user_email = self.email
         userBookViewModel.saveUserBook()
