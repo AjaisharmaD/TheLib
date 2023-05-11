@@ -193,7 +193,7 @@ class AddBookViewController: UIViewController {
         
         // Adding a Book and user details to the UserBook entity
         let userBookViewModel = UserBookViewModel()
-        let userBook = UserBook(context: userBookViewModel.context)
+        let userBook = UserBook(context: userBookViewModel.ubContext)
         userBook.user_email = self.email
         userBook.book_id = bookId
         userBook.status = BookStatus.wantToRead.rawValue

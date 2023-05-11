@@ -54,32 +54,54 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         let categoryBook = storyboard?.instantiateViewController(withIdentifier: "CategoryBookScreen") as! CategoryBookViewController
         
         switch selectedRow {
-        case .history:
-            categoryBook.category = .history
+            
+        case .fiction:
+            categoryBook.category = .fiction
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
-        case .biography:
-            categoryBook.category = .biography
+            
+        case .nonfiction:
+            categoryBook.category = .nonfiction
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
-        case .comedy:
-            categoryBook.category = .comedy
+            
+        case .mystery:
+            categoryBook.category = .mystery
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
-        case .horror:
-            categoryBook.category = .horror
+            
+        case .sifi:
+            categoryBook.category = .sifi
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
+            
         case .love:
             categoryBook.category = .love
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
-        case .poetry:
-            categoryBook.category = .poetry
+            
+        case .fantacy:
+            categoryBook.category = .fantacy
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
-        case .sifi:
-            categoryBook.category = .sifi
+            
+        case .memoir:
+            categoryBook.category = .memoir
+            self.navigationController?.pushViewController(categoryBook, animated: true)
+            break
+            
+        case .history:
+            categoryBook.category = .history
+            self.navigationController?.pushViewController(categoryBook, animated: true)
+            break
+            
+        case .biography:
+            categoryBook.category = .biography
+            self.navigationController?.pushViewController(categoryBook, animated: true)
+            break
+            
+        case .poetry:
+            categoryBook.category = .poetry
             self.navigationController?.pushViewController(categoryBook, animated: true)
             break
         }

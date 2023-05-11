@@ -4,28 +4,28 @@
 //
 //  Created by Ideas2it on 01/04/23.
 //
-
 import UIKit
 import PDFKit
 
 class DashboardViewController: UIViewController {
-
     var userBookViewModel = UserBookViewModel()
     var userViewModel = UserViewModel()
     var bookViewModel = BookViewModel()
     var userBooks : [UserBook] = []
     var allBooks : [Book] = []
     var myBooks : [Book] = []
-    var filteredBooks: [Book] = []
+    var filteredAllBooks: [Book] = []
+    var filteredMyBooks: [Book] = []
     var selectedIndex : IndexPath?
     let addBookImage = UIImageView()
     var email = String()
     
-    let defaultBooks : [String:Book] = [:]
-    
-    @IBOutlet weak var searchBar: UISearchBar!
+    var defaultBooks : [Book] = []
+
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var allBookSearchBar: UISearchBar!
     @IBOutlet weak var allBooksTable: UITableView!
+    @IBOutlet weak var myBookSearchBar: UISearchBar!
     @IBOutlet weak var myBooksTable: UITableView!
     
     private let floatingButton: UIButton = {
@@ -44,10 +44,13 @@ class DashboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         registerBookTable()
+        getDefaultBooks()
         
         segmentedControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
         myBooksTable.isHidden = true
+        myBookSearchBar.isHidden = true
         
         if let userEmail = UserDefaults.standard.string(forKey: "userEmail") {
             print("****************************\(userEmail)*************************************")
@@ -70,6 +73,7 @@ class DashboardViewController: UIViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didMenuPressed))
+        updateUI()
     }
     
     @objc func segmentChanged() {
@@ -78,13 +82,21 @@ class DashboardViewController: UIViewController {
         switch segmentIndex {
         case 0:
             allBooksTable.isHidden = false
+            allBookSearchBar.isHidden = false
+            allBookSearchBar.placeholder = "Search from All Book"
             floatingButton.isHidden = true
+            myBookSearchBar.isHidden = true
             myBooksTable.isHidden = true
+            self.updateUI()
             break
         case 1:
             allBooksTable.isHidden = true
+            allBookSearchBar.isHidden = true
             myBooksTable.isHidden = false
+            myBookSearchBar.isHidden = false
+            myBookSearchBar.placeholder = "Search from your Book"
             floatingButton.isHidden = false
+            self.updateUI()
             break
         default:
             break
@@ -112,9 +124,52 @@ class DashboardViewController: UIViewController {
     
     func updateUI(){
         userBooks = userBookViewModel.fetchMyBook(email: self.email)
-        allBooks = bookViewModel.fetchAllBooks()
+        
+        if 0 == allBooks.count {
+            allBooks = defaultBooks
+        } else {
+            allBooks = bookViewModel.fetchAllBooks()
+        }
         self.myBooksTable.reloadData()
         self.allBooksTable.reloadData()
+    }
+    
+    func getDefaultBooks() {
+        guard let path = Bundle.main.path(forResource: "defaultBooks", ofType: "json"),
+              let jsonData = try? Data(contentsOf: URL(filePath: path)) else {
+            print("Error while geting the json data")
+            return
+        }
+        
+        var loadBooks = [Book]()
+        
+        do {
+            if let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+            {
+                if let jsonArray = json["books"] as? [[String: Any]]
+                {
+                    for array in jsonArray {
+                        guard let bookTitle = array["title"] as? String,
+                              let authorName = array["author"] as? String,
+                              let category = array["category"] as? String,
+                              let image = array["image"] as? String else {
+                            return
+                        }
+                        
+                        let book = Book(context: bookViewModel.context)
+                        book.title = bookTitle
+                        book.author = authorName
+                        book.catagory = category
+                        book.book_image = UIImage(named: image)?.jpegData(compressionQuality: 1.0)
+                        
+                        loadBooks.append(book)
+                    }
+                    defaultBooks = loadBooks
+                }
+            }
+        } catch {
+            print("Error while parsing the json data to book data")
+        }
     }
     
     @objc func goToAddBook() {
@@ -138,17 +193,9 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
         var rowCount = 0
         
         if tableView == allBooksTable {
-            if 0 != filteredBooks.count {
-                rowCount = self.filteredBooks.count
-            } else {
-                rowCount = self.allBooks.count
-            }
+            rowCount = filteredAllBooks.isEmpty ? allBooks.count : filteredAllBooks.count
         } else {
-            if 0 != filteredBooks.count {
-                rowCount = self.filteredBooks.count
-            } else {
-                rowCount = self.userBooks.count
-            }
+            rowCount = filteredMyBooks.isEmpty ? userBooks.count : filteredMyBooks.count
         }
         return rowCount
     }
@@ -159,8 +206,8 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
         if tableView == allBooksTable {
             let allBookCell = tableView.dequeueReusableCell(withIdentifier: "AllBookTableViewCell", for: indexPath) as! AllBookTableViewCell
             
-            if 0 != filteredBooks.count {
-                book = filteredBooks[indexPath.row]
+            if 0 != filteredAllBooks.count {
+                book = filteredAllBooks[indexPath.row]
             } else {
                 book = allBooks[indexPath.row]
                 allBookCell.bookTitle.text = book.title
@@ -177,14 +224,13 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
                     allBookCell.addButton.tag = indexPath.row
                     allBookCell.addButton.addTarget(self, action: #selector(addToMyBooks(_:)), for: .touchUpInside)
                 }
-                
             }
             return allBookCell
         } else {
             let myBookCell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell", for: indexPath) as! BookTableViewCell
             
-            if 0 != filteredBooks.count {
-                book = filteredBooks[indexPath.row]
+            if 0 != filteredMyBooks.count {
+                book = filteredMyBooks[indexPath.row]
             } else {
                 if let book = userBooks[indexPath.row].books {
                     if let imageData = book.book_image, let image = UIImage(data: imageData) {
@@ -254,14 +300,14 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
     }
     
     @objc func addToMyBooks(_ sender: UIButton) {
-        let bookToAdd = userBooks[sender.tag].books
-        
-        let userBook = UserBook(context: userBookViewModel.context)
-        userBook.book_id = bookToAdd?.book_id
+        let bookToAdd = allBooks[sender.tag]
+        let userBook = UserBook(context: userBookViewModel.ubContext)
+        userBook.book_id = bookToAdd.book_id
         userBook.user_email = self.email
         userBook.status = BookStatus.wantToRead.rawValue
         userBook.books = bookToAdd
         userBookViewModel.saveUserBook()
+        myBooksTable.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -275,14 +321,12 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if tableView == myBooksTable {
-            if let book = self.userBooks[indexPath.row].books {
-                if editingStyle == .delete {
-                    book.is_deleted = true
-                }
-                bookViewModel.saveBook()
-                self.updateUI()
-                myBooksTable.reloadData()
+            if editingStyle == .delete {
+                userBookViewModel.deleteMyBook(book: userBooks[indexPath.row])
+                self.userBooks.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
+            self.updateUI()
         }
     }
     
@@ -297,6 +341,10 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
         } else {
             return nil
         }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
     
     @objc func didDropDownPressed(sender: UIButton) {
@@ -340,10 +388,8 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let segmentIndex = segmentedControl.selectedSegmentIndex
-        
-        if 0 == segmentIndex {
-            filteredBooks = searchText.isEmpty ? allBooks : allBooks.filter({ (book: Book) -> Bool in
+        if searchBar == allBookSearchBar {
+            filteredAllBooks = searchText.isEmpty ? allBooks : allBooks.filter({ (book: Book) -> Bool in
                 var bookName = String()
                 if let myBookName = book.title {
                     bookName = myBookName
@@ -353,7 +399,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource, U
             allBooksTable.reloadData()
         } else {
             myBooks = userBooks.map({$0.books!})
-            filteredBooks = searchText.isEmpty ? myBooks : myBooks.filter({ (book: Book) -> Bool in
+            filteredMyBooks = searchText.isEmpty ? myBooks : myBooks.filter({ (book: Book) -> Bool in
                 var bookName = String()
                 if let myBookName = book.title {
                     bookName = myBookName

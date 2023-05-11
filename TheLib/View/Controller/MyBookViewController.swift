@@ -115,8 +115,8 @@ extension MyBookViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.pushViewController(bookDetail, animated: true)
             break
         default:
-            bookDetail.bookStatus = .wantToRead
-            self.navigationController?.pushViewController(bookDetail, animated: true)
+//            bookDetail.bookStatus = .wantToRead
+//            self.navigationController?.pushViewController(bookDetail, animated: true)
             break
         }
         

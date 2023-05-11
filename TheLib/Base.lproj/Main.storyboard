@@ -104,61 +104,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ok3-ek-jRU">
-                                <rect key="frame" x="0.0" y="59" width="393" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="oKO-gj-8VV" id="rYx-ia-1hW"/>
-                                </connections>
-                            </searchBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PoN-Ea-nLb">
-                                <rect key="frame" x="0.0" y="115" width="393" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="J1o-ns-mEo">
+                                <rect key="frame" x="0.0" y="59" width="393" height="32"/>
                                 <segments>
                                     <segment title="All Books"/>
                                     <segment title="My Books"/>
                                 </segments>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RJy-L0-oMt">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="lrD-cE-kKl">
+                                <rect key="frame" x="0.0" y="90" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="QDb-ku-HyZ"/>
+                                </connections>
+                            </searchBar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="tE9-Cw-MZw">
+                                <rect key="frame" x="0.0" y="90" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="iLH-xd-Cxh"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Ws6-9P-lOM">
                                 <rect key="frame" x="0.0" y="146" width="393" height="672"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="ux6-I5-8x3"/>
-                                    <outlet property="delegate" destination="oKO-gj-8VV" id="vaP-cJ-kgn"/>
+                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="xar-ba-cXh"/>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="8je-24-Ctw"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="O9n-rO-xUm">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jsK-HR-Hf2">
                                 <rect key="frame" x="0.0" y="146" width="393" height="672"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="92Z-kI-jnk"/>
-                                    <outlet property="delegate" destination="oKO-gj-8VV" id="8b7-b7-rPK"/>
+                                    <outlet property="dataSource" destination="oKO-gj-8VV" id="xmW-Qy-Bd4"/>
+                                    <outlet property="delegate" destination="oKO-gj-8VV" id="JeW-5G-q9w"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xbo-dq-Zgi"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PoN-Ea-nLb" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="4mg-5D-3od"/>
-                            <constraint firstItem="O9n-rO-xUm" firstAttribute="bottom" secondItem="RJy-L0-oMt" secondAttribute="bottom" id="5BO-J7-KFn"/>
-                            <constraint firstItem="O9n-rO-xUm" firstAttribute="trailing" secondItem="RJy-L0-oMt" secondAttribute="trailing" id="76x-Ie-fAh"/>
-                            <constraint firstItem="PoN-Ea-nLb" firstAttribute="top" secondItem="Ok3-ek-jRU" secondAttribute="bottom" id="987-pv-IkZ"/>
-                            <constraint firstItem="O9n-rO-xUm" firstAttribute="leading" secondItem="RJy-L0-oMt" secondAttribute="leading" id="9kR-cV-MSd"/>
-                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="PoN-Ea-nLb" secondAttribute="trailing" id="D1p-6h-Ra5"/>
-                            <constraint firstItem="Ok3-ek-jRU" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="HJq-kQ-QYm"/>
-                            <constraint firstItem="RJy-L0-oMt" firstAttribute="top" secondItem="PoN-Ea-nLb" secondAttribute="bottom" id="RQC-Uo-caX"/>
-                            <constraint firstItem="Ok3-ek-jRU" firstAttribute="top" secondItem="xbo-dq-Zgi" secondAttribute="top" id="W5F-F3-dYJ"/>
-                            <constraint firstItem="Ok3-ek-jRU" firstAttribute="trailing" secondItem="xbo-dq-Zgi" secondAttribute="trailing" id="bUV-gX-uXq"/>
-                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="bottom" secondItem="RJy-L0-oMt" secondAttribute="bottom" id="jKX-2b-y1K"/>
-                            <constraint firstItem="RJy-L0-oMt" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="kl0-dc-JqN"/>
-                            <constraint firstItem="O9n-rO-xUm" firstAttribute="top" secondItem="RJy-L0-oMt" secondAttribute="top" id="oTS-yd-eu4"/>
-                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="RJy-L0-oMt" secondAttribute="trailing" id="zS2-mL-LrK"/>
+                            <constraint firstItem="J1o-ns-mEo" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="2Qf-jP-nhB"/>
+                            <constraint firstItem="tE9-Cw-MZw" firstAttribute="leading" secondItem="lrD-cE-kKl" secondAttribute="leading" id="6fu-yd-gyK"/>
+                            <constraint firstItem="jsK-HR-Hf2" firstAttribute="trailing" secondItem="Ws6-9P-lOM" secondAttribute="trailing" id="ADx-Yx-fn2"/>
+                            <constraint firstItem="jsK-HR-Hf2" firstAttribute="bottom" secondItem="Ws6-9P-lOM" secondAttribute="bottom" id="LUv-b5-fMP"/>
+                            <constraint firstItem="lrD-cE-kKl" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="OTR-EB-G1U"/>
+                            <constraint firstItem="lrD-cE-kKl" firstAttribute="trailing" secondItem="xbo-dq-Zgi" secondAttribute="trailing" id="TSl-ey-CXb"/>
+                            <constraint firstItem="tE9-Cw-MZw" firstAttribute="top" secondItem="lrD-cE-kKl" secondAttribute="top" id="ZM0-T6-Icw"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="J1o-ns-mEo" secondAttribute="trailing" id="ZQW-xX-rZJ"/>
+                            <constraint firstItem="tE9-Cw-MZw" firstAttribute="trailing" secondItem="lrD-cE-kKl" secondAttribute="trailing" id="bUF-Yp-D5b"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="bottom" secondItem="Ws6-9P-lOM" secondAttribute="bottom" id="cQZ-Ot-UUF"/>
+                            <constraint firstItem="lrD-cE-kKl" firstAttribute="top" secondItem="J1o-ns-mEo" secondAttribute="bottom" id="e2a-je-aGF"/>
+                            <constraint firstItem="xbo-dq-Zgi" firstAttribute="trailing" secondItem="Ws6-9P-lOM" secondAttribute="trailing" id="fRi-BY-9Fd"/>
+                            <constraint firstItem="jsK-HR-Hf2" firstAttribute="leading" secondItem="Ws6-9P-lOM" secondAttribute="leading" id="jIB-84-Aiz"/>
+                            <constraint firstItem="J1o-ns-mEo" firstAttribute="top" secondItem="xbo-dq-Zgi" secondAttribute="top" id="o0B-M1-jrX"/>
+                            <constraint firstItem="jsK-HR-Hf2" firstAttribute="top" secondItem="Ws6-9P-lOM" secondAttribute="top" id="qzj-3I-6FP"/>
+                            <constraint firstItem="Ws6-9P-lOM" firstAttribute="leading" secondItem="xbo-dq-Zgi" secondAttribute="leading" id="sdS-uQ-yf9"/>
+                            <constraint firstItem="Ws6-9P-lOM" firstAttribute="top" secondItem="lrD-cE-kKl" secondAttribute="bottom" id="tin-op-Fmt"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="allBooksTable" destination="RJy-L0-oMt" id="9db-wi-Xfu"/>
-                        <outlet property="myBooksTable" destination="O9n-rO-xUm" id="wXt-cQ-J2g"/>
-                        <outlet property="searchBar" destination="Ok3-ek-jRU" id="xGr-oZ-Hq9"/>
-                        <outlet property="segmentedControl" destination="PoN-Ea-nLb" id="l8U-Ov-wMy"/>
+                        <outlet property="allBookSearchBar" destination="lrD-cE-kKl" id="qRZ-WJ-u2c"/>
+                        <outlet property="allBooksTable" destination="Ws6-9P-lOM" id="lfI-kK-HMk"/>
+                        <outlet property="myBookSearchBar" destination="tE9-Cw-MZw" id="JYN-rC-hO3"/>
+                        <outlet property="myBooksTable" destination="jsK-HR-Hf2" id="mLH-Fi-XV9"/>
+                        <outlet property="segmentedControl" destination="J1o-ns-mEo" id="LQs-G5-lb5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Krf-a3-hu0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
